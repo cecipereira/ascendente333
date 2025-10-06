@@ -324,3 +324,67 @@
         <p>Aquí podrás acceder a material adicional: PDF, playlists y guías prácticas para acompañar tu experiencia.</p>
         <div class="card-grid">
           <a class="card" href="#" target="_blank" rel="
+
+            <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const PASSWORD   = "Asciendetualma333";
+    const ACCESS_KEY = "camino_access_date";
+
+    const accessScreen  = document.getElementById("access-screen");
+    const expiredScreen = document.getElementById("expired-screen");
+    const mainContent   = document.getElementById("main-content");
+    const input         = document.getElementById("password");
+    const errorMsg      = document.getElementById("error");
+
+    function showContent() {
+      accessScreen.classList.add("hidden");
+      mainContent.classList.remove("hidden");
+    }
+
+    function showExpired() {
+      accessScreen.classList.add("hidden");
+      expiredScreen.classList.remove("hidden");
+    }
+
+    function checkPassword() {
+      const value = input.value.trim();
+      if (value === PASSWORD) {
+        const now = new Date();
+        localStorage.setItem(ACCESS_KEY, now.toISOString());
+        showContent();
+      } else {
+        errorMsg.textContent = "🌸 Ups, la clave no es correcta. Intentá nuevamente con amor 💜";
+        errorMsg.classList.remove("hidden");
+        errorMsg.classList.add("fade-in");
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem(ACCESS_KEY);
+      location.reload();
+    }
+
+    // ✅ Enter para ingresar
+    input.addEventListener("keypress", e => {
+      if (e.key === "Enter") checkPassword();
+    });
+
+    // ✨ Oculta el mensaje al escribir de nuevo
+    input.addEventListener("input", () => {
+      errorMsg.classList.add("hidden");
+    });
+
+    window.checkPassword = checkPassword;
+    window.logout = logout;
+
+    // Verifica si ya tiene acceso guardado
+    const savedDate = localStorage.getItem(ACCESS_KEY);
+    if (savedDate) {
+      const firstAccess = new Date(savedDate);
+      const now = new Date();
+      const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
+      if (diffDays <= 30) showContent();
+      else showExpired();
+    }
+  });
+</script>
