@@ -1,196 +1,149 @@
-:root {
-  --primary-color: #4b2a73;
-  --secondary-color: #5a3f82;
-  --accent-color: #d8c7f7;
-  --text-color: #333;
-  --light-text: #fff;
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Lato', sans-serif;
-  --glass-bg: rgba(255, 255, 255, 0.36);
-  --glass-border: rgba(255, 255, 255, 0.5);
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camino hacia mi Centro 🦋 by Chechu</title>
 
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
-  color: var(--text-color);
-  min-height: 100vh;
-  background-image: url('../assets/bg.svg');
-  background-repeat: repeat;
-  background-size: 800px auto;
-}
+  <!-- Tipografías y estilos -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-/* --- Pantallas de acceso y expiración --- */
-#access-screen, #expired-screen {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
-  z-index: 9999;
-  text-align: center;
-  font-family: var(--font-body);
-  color: var(--primary-color);
-  padding: 2rem;
-}
+  <!-- Pantallas de acceso -->
+  <div id="access-screen">
+    <h2>Bienvenidas a Camino hacia mi Centro 🦋</h2>
+    <p>Por favor, ingresa la contraseña para acceder al contenido:</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="checkPassword()">Entrar</button>
+    <p id="error" class="error hidden">Contraseña incorrecta</p>
+  </div>
 
-#access-screen input {
-  padding: 0.7rem 1rem;
-  border-radius: 8px;
-  border: 1px solid var(--primary-color);
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  outline: none;
-}
+  <div id="expired-screen" class="hidden">
+    <h2>✨ El acceso ha finalizado</h2>
+    <p>Gracias por formar parte de Camino hacia mi Centro 💜</p>
+  </div>
 
-#access-screen button {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0.7rem 1.2rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
+  <!-- Contenido principal -->
+  <div id="main-content" class="hidden">
 
-#access-screen button:hover {
-  background: var(--secondary-color);
-}
+    <header>
+      <h1>Camino hacia mi Centro <span class="butterfly">🦋</span></h1>
+      <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
+    </header>
 
-.error { color: red; }
-.hidden { display: none !important; }
+    <nav>
+      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#clases"><i class="fas fa-spa"></i> Clases</a>
+      <a href="#alimentacion"><i class="fas fa-apple-alt"></i> Alimentación</a>
+      <a href="#meditaciones"><i class="fas fa-om"></i> Meditaciones</a>
+      <a href="#grupo"><i class="fas fa-users"></i> Comunidad</a>
+      <a href="#descargables"><i class="fas fa-download"></i> Descargables</a>
+    </nav>
 
-header {
-  text-align: center;
-  padding: 4rem 2rem 2rem;
-}
+    <main>
+      <section id="inicio">
+        <h2>Bienvenida</h2>
+        <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar. Aquí encontrarás clases de yoga, meditaciones y rituales que te ayudarán a reconectar con tu centro.</p>
+      </section>
 
-header h1 {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4vw + 1rem, 3.8rem);
-  color: var(--primary-color);
-}
+      <section id="clases">
+        <h2>Clases de Yoga</h2>
+        <p>7 clases cortas pensadas para tu práctica semanal. Los espacios a continuación están listos para tus videos:</p>
+        <div class="video-container">
+          <div class="video-placeholder">Clase 1</div>
+          <div class="video-placeholder">Clase 2</div>
+          <div class="video-placeholder">Clase 3</div>
+          <div class="video-placeholder">Clase 4</div>
+          <div class="video-placeholder">Clase 5</div>
+          <div class="video-placeholder">Clase 6</div>
+          <div class="video-placeholder">Clase 7</div>
+        </div>
+      </section>
 
-nav {
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  border-radius: 14px;
-  max-width: 1024px;
-  margin: 1.5rem auto 2rem;
-}
+      <section id="alimentacion">
+        <h2>Alimentación Consciente</h2>
+        <p>Aquí podrás encontrar tips, recetas y guías para una alimentación más saludable y conectada con tu bienestar.</p>
+        <div class="card-grid">
+          <div class="card"><i class="fas fa-carrot"></i><h3>Recetas Saludables</h3><p>Platos deliciosos y nutritivos para cuidar tu cuerpo.</p></div>
+          <div class="card"><i class="fas fa-leaf"></i><h3>Tips de Nutrición</h3><p>Consejos prácticos para mejorar tus hábitos diarios.</p></div>
+          <div class="card"><i class="fas fa-heart"></i><h3>Come con Amor</h3><p>Aprende a conectar con tu comida de una forma más consciente.</p></div>
+        </div>
+      </section>
 
-nav a {
-  text-decoration: none;
-  color: var(--primary-color);
-  font-weight: 700;
-  padding: 0.7rem 1.2rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.65);
-  transition: all 0.3s ease;
-}
+      <section id="meditaciones">
+        <h2>Meditaciones y Rituales</h2>
+        <p>Espacio para conectar con tu interior a través de la calma y la intención consciente.</p>
+        <div class="video-container">
+          <div class="video-placeholder">Meditación 1</div>
+          <div class="video-placeholder">Meditación 2</div>
+        </div>
+      </section>
 
-nav a:hover {
-  background: var(--primary-color);
-  color: var(--light-text);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(75, 42, 115, 0.25);
-}
+      <section id="grupo">
+        <h2>Comunidad</h2>
+        <p>Únete a la comunidad y compartí tu camino. <a href="#">Haz clic aquí para entrar al grupo privado.</a></p>
+      </section>
 
-section {
-  padding: 2rem;
-  max-width: 980px;
-  margin: 2rem auto;
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
-}
+      <section id="descargables">
+        <h2>Descargables</h2>
+        <p>Aquí podrás acceder a material adicional: PDF, playlists y guías prácticas para acompañar tu experiencia.</p>
+        <div class="card-grid">
+          <div class="card"><i class="fas fa-file-pdf"></i><h3>Guía de Meditación</h3><p>PDF para iniciarte en la práctica de la meditación.</p></div>
+          <div class="card"><i class="fas fa-music"></i><h3>Playlists Relajantes</h3><p>Música para tus sesiones de yoga y meditación.</p></div>
+        </div>
+      </section>
+    </main>
 
-h2 {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  color: var(--primary-color);
-  border-bottom: 2px solid var(--accent-color);
-  display: inline-block;
-  padding-bottom: 0.5rem;
-}
+    <footer>
+      <p>🌟 Buscá tu propósito y asciende tu alma.<br> Con amor, Chechu 🦋✨</p>
+    </footer>
 
-.video-placeholder {
-  background: rgba(255,255,255,0.5);
-  border: 1px dashed var(--accent-color);
-  border-radius: 10px;
-  text-align: center;
-  padding: 2rem;
-  color: var(--secondary-color);
-  font-style: italic;
-}
+    <div class="logout-container">
+      <button onclick="logout()" class="logout-btn"><i class="fas fa-door-open"></i> Cerrar acceso a este espacio</button>
+    </div>
+  </div>
 
-.video-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.2rem;
-  margin-top: 1.2rem;
-}
+  <script>
+    const PASSWORD = "Asciendetualma333";
+    const ACCESS_KEY = "camino_access_date";
 
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.2rem;
-  margin-top: 1.2rem;
-}
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const error = document.getElementById("error");
+      if (input === PASSWORD) {
+        const now = new Date();
+        localStorage.setItem(ACCESS_KEY, now.toISOString());
+        showContent();
+      } else error.classList.remove("hidden");
+    }
 
-.card {
-  background: rgba(255, 255, 255, 0.55);
-  padding: 1.6rem;
-  border-radius: 16px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-}
+    function showContent() {
+      document.getElementById("access-screen").classList.add("hidden");
+      document.getElementById("main-content").classList.remove("hidden");
+    }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-}
+    function showExpired() {
+      document.getElementById("access-screen").classList.add("hidden");
+      document.getElementById("expired-screen").classList.remove("hidden");
+    }
 
-footer {
-  text-align: center;
-  padding: 2.4rem 2rem 3rem;
-  color: var(--primary-color);
-  font-size: 1rem;
-  margin-top: 3rem;
-  background: rgba(255,255,255,0.42);
-  backdrop-filter: blur(10px);
-}
+    function logout() {
+      localStorage.removeItem(ACCESS_KEY);
+      location.reload();
+    }
 
-.logout-container {
-  text-align: center;
-  padding: 2rem;
-}
-
-.logout-btn {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid var(--primary-color);
-  border-radius: 999px;
-  color: var(--primary-color);
-  padding: 0.8rem 1.6rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.logout-btn:hover {
-  background: var(--primary-color);
-  color: white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
+    // Verifica acceso guardado
+    const savedDate = localStorage.getItem(ACCESS_KEY);
+    if (savedDate) {
+      const firstAccess = new Date(savedDate);
+      const now = new Date();
+      const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
+      if (diffDays <= 30) showContent();
+      else showExpired();
+    }
+  </script>
+</body>
+</html>
