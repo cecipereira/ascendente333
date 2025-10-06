@@ -184,6 +184,41 @@ iframe:hover{ transform:scale(1.02); box-shadow:0 6px 20px rgba(0,0,0,.15); }
   filter:blur(.6px);
 }
 
+  /* 🌟 Lucecitas flotantes de energía */
+#access-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.8) 1.5px, transparent 2px),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.7) 1.2px, transparent 2px),
+    radial-gradient(circle at 50% 40%, rgba(255,255,255,0.6) 1.8px, transparent 3px);
+  background-repeat: repeat;
+  animation: floatLights 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatLights {
+  0% {
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+    opacity: 0.5;
+  }
+  50% {
+    background-position: 100% 50%, 0% 100%, 60% 30%;
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 50% 100%, 50% 0%, 40% 60%;
+    opacity: 0.4;
+  }
+}
+
+#access-screen * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Botón Cerrar acceso (abajo) */
 .logout-container{ text-align:center; padding:1.5rem 2rem 3rem; }
 .logout-btn{
