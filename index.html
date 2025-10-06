@@ -1,308 +1,196 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Camino hacia mi centro</title>
+:root {
+  --primary-color: #4b2a73;
+  --secondary-color: #5a3f82;
+  --accent-color: #d8c7f7;
+  --text-color: #333;
+  --light-text: #fff;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+  --glass-bg: rgba(255, 255, 255, 0.36);
+  --glass-border: rgba(255, 255, 255, 0.5);
+}
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
+  color: var(--text-color);
+  min-height: 100vh;
+  background-image: url('../assets/bg.svg');
+  background-repeat: repeat;
+  background-size: 800px auto;
+}
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+/* --- Pantallas de acceso y expiración --- */
+#access-screen, #expired-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
+  z-index: 9999;
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--primary-color);
+  padding: 2rem;
+}
 
-  <style>
-    :root {
-      --primary-color: #4b2a73;
-      --secondary-color: #5a3f82;
-      --accent-color: #d8c7f7;
-      --text-color: #333;
-      --light-text: #fff;
-      --font-heading: 'Playfair Display', serif;
-      --font-body: 'Lato', sans-serif;
-      --glass-bg: rgba(255, 255, 255, 0.36);
-      --glass-border: rgba(255, 255, 255, 0.5);
-    }
+#access-screen input {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  outline: none;
+}
 
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background:
-        radial-gradient(1200px 800px at 10% 5%, rgba(255,255,255,0.45), rgba(255,255,255,0) 60%),
-        linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
-      color: var(--text-color);
-      min-height: 100vh;
-    }
+#access-screen button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
 
-    /* --- Pantallas de acceso y expiración --- */
-    #access-screen, #expired-screen {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
-      z-index: 9999;
-      text-align: center;
-      font-family: var(--font-body);
-      color: var(--primary-color);
-      padding: 2rem;
-    }
+#access-screen button:hover {
+  background: var(--secondary-color);
+}
 
-    #access-screen h2, #expired-screen h2 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+.error { color: red; }
+.hidden { display: none !important; }
 
-    #access-screen input {
-      padding: 0.7rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--primary-color);
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      outline: none;
-    }
+header {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+}
 
-    #access-screen button {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+header h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 4vw + 1rem, 3.8rem);
+  color: var(--primary-color);
+}
 
-    #access-screen button:hover {
-      background: var(--secondary-color);
-    }
+nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  border-radius: 14px;
+  max-width: 1024px;
+  margin: 1.5rem auto 2rem;
+}
 
-    #expired-screen p {
-      font-size: 1.2rem;
-      color: var(--secondary-color);
-    }
+nav a {
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.65);
+  transition: all 0.3s ease;
+}
 
-    .hidden { display: none !important; }
+nav a:hover {
+  background: var(--primary-color);
+  color: var(--light-text);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(75, 42, 115, 0.25);
+}
 
-    /* --- Resto del diseño original --- */
-    header {
-      text-align: center;
-      padding: 4rem 2rem 2rem;
-    }
+section {
+  padding: 2rem;
+  max-width: 980px;
+  margin: 2rem auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+}
 
-    header h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 4vw + 1rem, 3.8rem);
-      color: var(--primary-color);
-      margin: 0;
-    }
+h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--accent-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
 
-    header p {
-      font-size: 1.2rem;
-      color: var(--secondary-color);
-    }
+.video-placeholder {
+  background: rgba(255,255,255,0.5);
+  border: 1px dashed var(--accent-color);
+  border-radius: 10px;
+  text-align: center;
+  padding: 2rem;
+  color: var(--secondary-color);
+  font-style: italic;
+}
 
-    nav {
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      border-radius: 14px;
-      max-width: 1024px;
-      margin: 1.5rem auto 2rem;
-    }
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
 
-    nav a, nav button {
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 700;
-      padding: 0.7rem 1.2rem;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.65);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.98rem;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-body);
-    }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
 
-    nav a:hover, nav button:hover {
-      background: var(--primary-color);
-      color: var(--light-text);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(75, 42, 115, 0.25);
-    }
+.card {
+  background: rgba(255, 255, 255, 0.55);
+  padding: 1.6rem;
+  border-radius: 16px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
 
-    section {
-      padding: 2rem;
-      max-width: 980px;
-      margin: 2rem auto;
-      background: var(--glass-bg);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-    }
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
 
-    h2 {
-      font-family: var(--font-heading);
-      font-size: 2rem;
-      color: var(--primary-color);
-      border-bottom: 2px solid var(--accent-color);
-      display: inline-block;
-      padding-bottom: 0.5rem;
-    }
+footer {
+  text-align: center;
+  padding: 2.4rem 2rem 3rem;
+  color: var(--primary-color);
+  font-size: 1rem;
+  margin-top: 3rem;
+  background: rgba(255,255,255,0.42);
+  backdrop-filter: blur(10px);
+}
 
-    .video-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1.2rem;
-    }
+.logout-container {
+  text-align: center;
+  padding: 2rem;
+}
 
-    .video-container iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.logout-btn {
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid var(--primary-color);
+  border-radius: 999px;
+  color: var(--primary-color);
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    .video-container iframe:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1.2rem;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.55);
-      padding: 1.6rem;
-      border-radius: 16px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-    }
-
-    .card i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 0.75rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2.4rem 2rem 3rem;
-      color: var(--primary-color);
-      font-size: 1rem;
-      margin-top: 3rem;
-      background: rgba(255,255,255,0.42);
-      backdrop-filter: blur(10px);
-    }
-  </style>
-</head>
-<body>
-  <!-- Pantallas de acceso -->
-  <div id="access-screen">
-    <h2>Bienvenidas a Camino hacia mi Centro 🦋</h2>
-    <p>Por favor, ingresa la contraseña para acceder al contenido:</p>
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="checkPassword()">Entrar</button>
-    <p id="error" style="color:red; display:none;">Contraseña incorrecta</p>
-  </div>
-
-  <div id="expired-screen" class="hidden">
-    <h2>✨ El acceso ha finalizado</h2>
-    <p>Gracias por formar parte de Camino hacia mi Centro 💜</p>
-  </div>
-
-  <!-- Contenido principal -->
-  <div id="main-content" class="hidden">
-    <header>
-      <h1>Camino hacia mi centro <span class="butterfly">🦋</span></h1>
-      <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
-    </header>
-
-    <nav>
-      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
-      <a href="#clases"><i class="fas fa-spa"></i> Clases y Rutina</a>
-      <a href="#alimentacion"><i class="fas fa-apple-alt"></i> Alimentación</a>
-      <a href="#meditaciones"><i class="fas fa-om"></i> Meditaciones</a>
-      <a href="#grupo"><i class="fas fa-users"></i> Grupo</a>
-      <a href="#descargables"><i class="fas fa-download"></i> Descargables</a>
-      <button onclick="logout()"><i class="fas fa-door-open"></i> Cerrar sesión</button>
-    </nav>
-
-    <main>
-      <!-- TODO: todo tu contenido, como antes -->
-      <section id="inicio">
-        <h2>Bienvenida</h2>
-        <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar...</p>
-      </section>
-      <!-- resto del contenido igual -->
-    </main>
-
-    <footer>
-      <p>🌟 Buscá tu propósito y asciende tu alma. <br> Con amor, Chechu 🦋✨</p>
-    </footer>
-  </div>
-
-  <script>
-    const PASSWORD = "Asciendetualma333";
-    const ACCESS_KEY = "camino_access_date";
-
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      const error = document.getElementById("error");
-      if (input === PASSWORD) {
-        const now = new Date();
-        localStorage.setItem(ACCESS_KEY, now.toISOString());
-        showContent();
-      } else error.style.display = "block";
-    }
-
-    function showContent() {
-      document.getElementById("access-screen").classList.add("hidden");
-      document.getElementById("main-content").classList.remove("hidden");
-    }
-
-    function showExpired() {
-      document.getElementById("access-screen").classList.add("hidden");
-      document.getElementById("expired-screen").classList.remove("hidden");
-    }
-
-    function logout() {
-      localStorage.removeItem(ACCESS_KEY);
-      location.reload();
-    }
-
-    // Verifica acceso guardado
-    const savedDate = localStorage.getItem(ACCESS_KEY);
-    if (savedDate) {
-      const firstAccess = new Date(savedDate);
-      const now = new Date();
-      const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
-      if (diffDays <= 30) showContent();
-      else showExpired();
-    }
-  </script>
-</body>
-</html>
+.logout-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
