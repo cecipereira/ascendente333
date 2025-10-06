@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Camino hacia mi Centro 🦋 by Chechu</title>
 
-  <!-- Tipografías y estilos -->
+  <!-- Tipografías + Iconos -->
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Pantallas de acceso -->
+  <!-- Pantalla de acceso -->
   <div id="access-screen">
     <h2>Bienvenidas a Camino hacia mi Centro 🦋</h2>
     <p>Por favor, ingresa la contraseña para acceder al contenido:</p>
-    <input type="password" id="password" placeholder="Contraseña">
+    <input type="password" id="password" placeholder="Contraseña" />
     <button onclick="checkPassword()">Entrar</button>
     <p id="error" class="error hidden">Contraseña incorrecta</p>
   </div>
 
+  <!-- Pantalla de expiración -->
   <div id="expired-screen" class="hidden">
     <h2>✨ El acceso ha finalizado</h2>
     <p>Gracias por formar parte de Camino hacia mi Centro 💜</p>
@@ -28,10 +31,9 @@
 
   <!-- Contenido principal -->
   <div id="main-content" class="hidden">
-
     <header>
-      <h1>Camino hacia mi Centro <span class="butterfly">🦋</span></h1>
-      <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
+      <h1 class="fade-in">Camino hacia mi Centro <span class="butterfly">🦋</span></h1>
+      <p class="fade-in-delay">Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
     </header>
 
     <nav>
@@ -44,80 +46,102 @@
     </nav>
 
     <main>
-      <section id="inicio">
+      <!-- INICIO -->
+      <section id="inicio" class="card-section">
         <h2>Bienvenida</h2>
         <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar. Aquí encontrarás clases de yoga, meditaciones y rituales que te ayudarán a reconectar con tu centro.</p>
       </section>
 
-      <section id="clases">
+      <!-- CLASES -->
+      <section id="clases" class="card-section">
         <h2>Clases de Yoga</h2>
-        <p>7 clases cortas pensadas para tu práctica semanal. Los espacios a continuación están listos para tus videos:</p>
+        <p>7 clases cortas pensadas para tu práctica semanal. Se repiten durante todo el mes para ayudarte a integrar el hábito.</p>
         <div class="video-container">
-          <div class="video-placeholder">Clase 1</div>
-          <div class="video-placeholder">Clase 2</div>
-          <div class="video-placeholder">Clase 3</div>
-          <div class="video-placeholder">Clase 4</div>
-          <div class="video-placeholder">Clase 5</div>
-          <div class="video-placeholder">Clase 6</div>
-          <div class="video-placeholder">Clase 7</div>
+          <!-- 👇 Pegá aquí tus links reales (YouTube/Vimeo). Ejemplo: src="https://www.youtube.com/embed/xxxx" -->
+          <div class="video-placeholder">Clase 1 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 2 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 3 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 4 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 5 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 6 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Clase 7 — Pega tu URL aquí</div>
         </div>
+        <!-- 🔄 Cómo reemplazar un placeholder por un video:
+          Sustituye el <div class="video-placeholder">…</div> por:
+          <iframe src="TU_VIDEO_URL" title="Clase X" allowfullscreen></iframe>
+        -->
       </section>
 
-      <section id="alimentacion">
+      <!-- ALIMENTACIÓN -->
+      <section id="alimentacion" class="card-section">
         <h2>Alimentación Consciente</h2>
         <p>Aquí podrás encontrar tips, recetas y guías para una alimentación más saludable y conectada con tu bienestar.</p>
         <div class="card-grid">
           <div class="card"><i class="fas fa-carrot"></i><h3>Recetas Saludables</h3><p>Platos deliciosos y nutritivos para cuidar tu cuerpo.</p></div>
           <div class="card"><i class="fas fa-leaf"></i><h3>Tips de Nutrición</h3><p>Consejos prácticos para mejorar tus hábitos diarios.</p></div>
-          <div class="card"><i class="fas fa-heart"></i><h3>Come con Amor</h3><p>Aprende a conectar con tu comida de una forma más consciente.</p></div>
+          <div class="card"><i class="fas fa-heart"></i><h3>Come con Amor</h3><p>Conecta con tu comida de una forma más consciente.</p></div>
         </div>
       </section>
 
-      <section id="meditaciones">
+      <!-- MEDITACIONES -->
+      <section id="meditaciones" class="card-section">
         <h2>Meditaciones y Rituales</h2>
         <p>Espacio para conectar con tu interior a través de la calma y la intención consciente.</p>
         <div class="video-container">
-          <div class="video-placeholder">Meditación 1</div>
-          <div class="video-placeholder">Meditación 2</div>
+          <div class="video-placeholder">Meditación 1 — Pega tu URL aquí</div>
+          <div class="video-placeholder">Meditación 2 — Pega tu URL aquí</div>
         </div>
       </section>
 
-      <section id="grupo">
+      <!-- COMUNIDAD -->
+      <section id="grupo" class="card-section">
         <h2>Comunidad</h2>
         <p>Únete a la comunidad y compartí tu camino. <a href="#">Haz clic aquí para entrar al grupo privado.</a></p>
       </section>
 
-      <section id="descargables">
+      <!-- DESCARGABLES -->
+      <section id="descargables" class="card-section">
         <h2>Descargables</h2>
         <p>Aquí podrás acceder a material adicional: PDF, playlists y guías prácticas para acompañar tu experiencia.</p>
         <div class="card-grid">
-          <div class="card"><i class="fas fa-file-pdf"></i><h3>Guía de Meditación</h3><p>PDF para iniciarte en la práctica de la meditación.</p></div>
-          <div class="card"><i class="fas fa-music"></i><h3>Playlists Relajantes</h3><p>Música para tus sesiones de yoga y meditación.</p></div>
+          <!-- 👇 Reemplazá # por el link a tu PDF o playlist -->
+          <a class="card link-card" href="#" target="_blank" rel="noopener">
+            <i class="fas fa-file-pdf"></i><h3>Guía de Meditación (PDF)</h3><p>Descarga la guía para profundizar tu práctica.</p>
+          </a>
+          <a class="card link-card" href="#" target="_blank" rel="noopener">
+            <i class="fas fa-music"></i><h3>Playlists Relajantes</h3><p>Música para tus sesiones de yoga y meditación.</p>
+          </a>
         </div>
       </section>
     </main>
 
-    <footer>
-      <p>🌟 Buscá tu propósito y asciende tu alma.<br> Con amor, Chechu 🦋✨</p>
+    <!-- FOOTER -->
+    <footer class="footer-gradient">
+      <p class="footer-line glow">🌟 Buscá tu propósito y asciende tu alma.</p>
+      <p>Con amor, Chechu 🦋✨</p>
     </footer>
 
+    <!-- CERRAR ACCESO -->
     <div class="logout-container">
       <button onclick="logout()" class="logout-btn"><i class="fas fa-door-open"></i> Cerrar acceso a este espacio</button>
     </div>
   </div>
 
+  <!-- Lógica de acceso -->
   <script>
-    const PASSWORD = "Asciendetualma333";
+    const PASSWORD   = "Asciendetualma333";
     const ACCESS_KEY = "camino_access_date";
 
     function checkPassword() {
-      const input = document.getElementById("password").value;
+      const input = document.getElementById("password").value.trim();
       const error = document.getElementById("error");
       if (input === PASSWORD) {
         const now = new Date();
         localStorage.setItem(ACCESS_KEY, now.toISOString());
         showContent();
-      } else error.classList.remove("hidden");
+      } else {
+        error.classList.remove("hidden");
+      }
     }
 
     function showContent() {
@@ -135,15 +159,16 @@
       location.reload();
     }
 
-    // Verifica acceso guardado
-    const savedDate = localStorage.getItem(ACCESS_KEY);
-    if (savedDate) {
+    // Verifica si ya hay acceso guardado y si no expiró (30 días)
+    (function initAccess(){
+      const savedDate = localStorage.getItem(ACCESS_KEY);
+      if (!savedDate) return; // sin acceso previo: mostrar pantalla de contraseña
       const firstAccess = new Date(savedDate);
       const now = new Date();
       const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
       if (diffDays <= 30) showContent();
       else showExpired();
-    }
+    })();
   </script>
 </body>
 </html>
