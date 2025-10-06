@@ -5,114 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Camino hacia mi centro</title>
   
-  <!-- Google Fonts: Playfair Display para títulos, Lato para el cuerpo -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome para iconos -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* --- Variables de Color y Tipografía --- */
     :root {
       --primary-color: #4b2a73;
       --secondary-color: #5a3f82;
       --accent-color: #d8c7f7;
-      --text-color: #333;
       --light-text: #fff;
       --font-heading: 'Playfair Display', serif;
       --font-body: 'Lato', sans-serif;
-      --glass-bg: rgba(255, 255, 255, 0.36);
-      --glass-border: rgba(255, 255, 255, 0.5);
     }
 
-    /* --- Animaciones --- */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(-5deg); }
-      50%      { transform: translateY(-10px) rotate(5deg); }
-    }
-
-    /* --- Estilos Generales --- */
     body {
       margin: 0;
       font-family: var(--font-body);
-      /* Capa 1: degradé atardecer sutil */
-      background:
-        radial-gradient(1200px 800px at 10% 5%, rgba(255,255,255,0.45), rgba(255,255,255,0) 60%),
-        linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
-      color: var(--text-color);
+      color: #333;
+      background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
       min-height: 100vh;
     }
 
-    /* Capa 2: patrón de flores + colibríes en todo el fondo */
-    body::before {
-      content: "";
+    /* --- Pantalla de login y expiración --- */
+    #access-screen, #expired-screen {
       position: fixed;
       inset: 0;
-      pointer-events: none;
-      background-image: url('assets/bg.svg');
-      background-size: 900px auto;
-      background-repeat: repeat;
-      background-attachment: fixed;
-      opacity: 0.35; /* Sutileza */
-      z-index: -1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #e8d9ff 0%, #f7c3e3 50%, #ffd0a8 100%);
+      z-index: 9999;
+      text-align: center;
+      font-family: var(--font-body);
+      color: var(--primary-color);
+      padding: 2rem;
     }
 
-    /* --- Header --- */
+    #access-screen h2, #expired-screen h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    #access-screen input {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary-color);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+    }
+
+    #access-screen button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #access-screen button:hover {
+      background: var(--secondary-color);
+    }
+
+    #expired-screen p {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+
+    /* --- Estilos originales --- */
     header {
       text-align: center;
       padding: 4rem 2rem 2rem;
-      position: relative;
     }
 
     header h1 {
       font-family: var(--font-heading);
-      font-size: clamp(2.4rem, 4vw + 1rem, 3.8rem);
+      font-size: 3rem;
       color: var(--primary-color);
       margin: 0;
-      animation: fadeInUp 1s ease-out;
-      letter-spacing: 0.5px;
-    }
-
-    header .butterfly {
-      display: inline-block;
-      font-size: 1em;
-      animation: float 4s ease-in-out infinite;
-      margin-left: 10px;
     }
 
     header p {
-      font-size: clamp(1rem, 1vw + 0.8rem, 1.3rem);
+      font-size: 1.2rem;
       color: var(--secondary-color);
-      max-width: 680px;
-      margin: 1rem auto 0;
-      animation: fadeInUp 1s ease-out 0.2s both;
     }
 
-    /* --- Navegación --- */
     nav {
-      background: var(--glass-bg);
-      -webkit-backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(15px);
-      padding: 1rem 1.25rem;
+      padding: 1rem;
       display: flex;
       justify-content: center;
-      gap: 0.75rem;
+      gap: 1rem;
       flex-wrap: wrap;
-      border-top: 1px solid var(--glass-border);
-      border-bottom: 1px solid var(--glass-border);
-      margin: 1.5rem 0 2rem;
-      animation: fadeInUp 1s ease-out 0.4s both;
       border-radius: 14px;
       max-width: 1024px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 2rem auto;
     }
 
     nav a {
@@ -126,7 +121,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
       font-size: 0.98rem;
     }
 
@@ -135,184 +129,132 @@
       color: var(--light-text);
       transform: translateY(-2px);
       box-shadow: 0 8px 18px rgba(75, 42, 115, 0.25);
-      text-decoration: none;
     }
 
-    /* --- Secciones de Contenido --- */
     section {
-      padding: clamp(1.5rem, 2vw + 1rem, 2.5rem);
+      padding: 2rem;
       max-width: 980px;
       margin: 2rem auto;
-      background: var(--glass-bg);
-      -webkit-backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.5);
       backdrop-filter: blur(15px);
       border-radius: 20px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-      border: 1px solid var(--glass-border);
-      animation: fadeInUp 1s ease-out;
     }
 
     h2 {
       font-family: var(--font-heading);
-      font-size: clamp(1.6rem, 1.8vw + 1rem, 2.2rem);
       color: var(--primary-color);
-      margin-top: 0;
       border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 0.5rem;
       display: inline-block;
+      padding-bottom: 0.5rem;
     }
 
-    p { line-height: 1.7; font-size: 1.08rem; }
-
-    a { color: var(--primary-color); font-weight: 700; text-decoration: none; transition: color 0.3s ease; }
-    a:hover { text-decoration: underline; color: var(--secondary-color); }
-
-    /* --- Grid de Videos --- */
-    .video-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1.2rem;
-    }
-
-    .video-container iframe {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .video-container iframe:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    /* --- Tarjetas --- */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.2rem;
-      margin-top: 1.2rem;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.55);
-      padding: 1.6rem;
-      border-radius: 16px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.55);
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
-    .card i { font-size: 2rem; color: var(--primary-color); margin-bottom: 0.75rem; }
-    .card h3 { font-family: var(--font-heading); color: var(--primary-color); margin-top: 0; }
-
-    /* --- Footer --- */
     footer {
       text-align: center;
       padding: 2.4rem 2rem 3rem;
       color: var(--primary-color);
       font-size: 1rem;
       margin-top: 3rem;
-      border-top: 1px solid var(--glass-border);
       background: rgba(255,255,255,0.42);
-      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
     }
-    footer p { margin: 0; }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Camino hacia mi centro <span class="butterfly">🦋</span></h1>
-    <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
-  </header>
+  <!-- Pantalla de acceso -->
+  <div id="access-screen">
+    <h2>Bienvenidas a Camino hacia mi Centro 🦋</h2>
+    <p>Por favor, ingresa la contraseña para acceder al contenido:</p>
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="checkPassword()">Entrar</button>
+    <p id="error" style="color:red; display:none;">Contraseña incorrecta</p>
+  </div>
 
-  <nav>
-    <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
-    <a href="#clases"><i class="fas fa-spa"></i> Clases y Rutina</a>
-    <a href="#alimentacion"><i class="fas fa-apple-alt"></i> Alimentación Consciente</a>
-    <a href="#meditaciones"><i class="fas fa-om"></i> Meditaciones y Rituales</a>
-    <a href="#grupo"><i class="fas fa-users"></i> Grupo</a>
-    <a href="#descargables"><i class="fas fa-download"></i> Descargables</a>
-  </nav>
+  <!-- Pantalla de expiración -->
+  <div id="expired-screen" class="hidden">
+    <h2>✨ El acceso ha finalizado</h2>
+    <p>Gracias por formar parte de Camino hacia mi Centro 💜</p>
+  </div>
 
-  <main>
-    <section id="inicio">
-      <h2>Bienvenida</h2>
-      <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar. Aquí encontrarás clases de yoga, meditaciones y rituales que te ayudarán a reconectar con tu centro.</p>
-    </section>
+  <!-- Contenido del sitio -->
+  <div id="main-content" class="hidden">
+    <header>
+      <h1>Camino hacia mi centro <span class="butterfly">🦋</span></h1>
+      <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
+    </header>
 
-    <section id="clases">
-      <h2>Clases de Yoga</h2>
-      <p>7 clases cortas pensadas para tu práctica semanal. Se repiten durante todo el mes para ayudarte a integrar el hábito.</p>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 1"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 2"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 3"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 4"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 5"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 6"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Clase 7"></iframe>
-      </div>
-    </section>
+    <nav>
+      <a href="#inicio"><i class="fas fa-home"></i> Inicio</a>
+      <a href="#clases"><i class="fas fa-spa"></i> Clases y Rutina</a>
+      <a href="#alimentacion"><i class="fas fa-apple-alt"></i> Alimentación</a>
+      <a href="#meditaciones"><i class="fas fa-om"></i> Meditaciones</a>
+      <a href="#grupo"><i class="fas fa-users"></i> Grupo</a>
+      <a href="#descargables"><i class="fas fa-download"></i> Descargables</a>
+    </nav>
 
-    <section id="alimentacion">
-      <h2>Alimentación Consciente</h2>
-      <p>Aquí podrás encontrar tips, recetas y guías para una alimentación más saludable y conectada con tu bienestar.</p>
-      <div class="card-grid">
-        <div class="card">
-          <i class="fas fa-carrot"></i>
-          <h3>Recetas Saludables</h3>
-          <p>Platos deliciosos y nutritivos para cuidar tu cuerpo.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-leaf"></i>
-          <h3>Tips de Nutrición</h3>
-          <p>Consejos prácticos para mejorar tus hábitos diarios.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-heart"></i>
-          <h3>Come con Amor</h3>
-          <p>Aprende a conectar con tu comida de una forma más consciente.</p>
-        </div>
-      </div>
-    </section>
+    <main>
+      <section id="inicio">
+        <h2>Bienvenida</h2>
+        <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar. Aquí encontrarás clases de yoga, meditaciones y rituales que te ayudarán a reconectar con tu centro.</p>
+      </section>
+      <section id="clases">
+        <h2>Clases de Yoga</h2>
+        <p>7 clases cortas pensadas para tu práctica semanal.</p>
+      </section>
+      <section id="meditaciones">
+        <h2>Meditaciones y Rituales</h2>
+        <p>Conecta con tu interior a través de la calma y la intención consciente.</p>
+      </section>
+    </main>
 
-    <section id="meditaciones">
-      <h2>Meditaciones y Rituales</h2>
-      <p>Espacio para conectar con tu interior a través de la calma y la intención consciente.</p>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Meditación 1"></iframe>
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen title="Meditación 2"></iframe>
-      </div>
-    </section>
+    <footer>
+      <p>🌟 Buscá tu propósito y asciende tu alma. <br> Con amor, Chechu 🦋✨</p>
+    </footer>
+  </div>
 
-    <section id="grupo">
-      <h2>Grupo</h2>
-      <p>Únete a la comunidad y compartí tu camino. <a href="#">Haz clic aquí para entrar al grupo privado.</a></p>
-    </section>
+  <script>
+    const PASSWORD = "Asciendetualma333";
+    const ACCESS_KEY = "camino_access_date";
 
-    <section id="descargables">
-      <h2>Descargables</h2>
-      <p>Aquí podrás acceder a material adicional: PDF, playlists y guías prácticas para acompañar tu experiencia.</p>
-      <div class="card-grid">
-        <div class="card">
-          <i class="fas fa-file-pdf"></i>
-          <h3>Guía de Meditación</h3>
-          <p>PDF para iniciarte en la práctica de la meditación.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-music"></i>
-          <h3>Playlists Relajantes</h3>
-          <p>Música para tus sesiones de yoga y meditación.</p>
-        </div>
-      </div>
-    </section>
-  </main>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const error = document.getElementById("error");
 
-  <footer>
-    <p>🌟 Buscá tu propósito y asciende tu alma. <br> Con amor, Chechu 🦋✨</p>
-  </footer>
+      if (input === PASSWORD) {
+        const now = new Date();
+        localStorage.setItem(ACCESS_KEY, now.toISOString());
+        showContent();
+      } else {
+        error.style.display = "block";
+      }
+    }
+
+    function showContent() {
+      document.getElementById("access-screen").classList.add("hidden");
+      document.getElementById("main-content").classList.remove("hidden");
+    }
+
+    function showExpired() {
+      document.getElementById("access-screen").classList.add("hidden");
+      document.getElementById("expired-screen").classList.remove("hidden");
+    }
+
+    // Verificar acceso
+    const savedDate = localStorage.getItem(ACCESS_KEY);
+    if (savedDate) {
+      const firstAccess = new Date(savedDate);
+      const now = new Date();
+      const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
+
+      if (diffDays <= 30) {
+        showContent();
+      } else {
+        showExpired();
+      }
+    }
+  </script>
 </body>
 </html>
