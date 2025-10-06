@@ -9,31 +9,261 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root{
+      --primary-color:#4b2a73;
+      --secondary-color:#5a3f82;
+      --accent-color:#d8c7f7;
+      --text-color:#333;
+      --light-text:#fff;
+      --font-heading:'Playfair Display',serif;
+      --font-body:'Lato',sans-serif;
+      --glass-bg:rgba(255,255,255,0.36);
+      --glass-border:rgba(255,255,255,0.5);
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--text-color);
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 800px at 10% 5%, rgba(255,255,255,0.45), rgba(255,255,255,0) 60%),
+        linear-gradient(135deg,
+          #b3e5fc 0%,    /* celeste suave */
+          #cbb3ff 40%,   /* violeta pastel */
+          #f7c3e3 65%,   /* rosa coral */
+          #ffb980 100%   /* naranja cálido atardecer */
+        );
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    /* Fondo SVG embebido */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?> <svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"> <defs> <linearGradient id="sunset" x1="0" y1="0" x2="1" y2="1"> <stop offset="0%" stop-color="%23b3e5fc" stop-opacity="0.5"/> <stop offset="40%" stop-color="%23cbb3ff" stop-opacity="0.4"/> <stop offset="75%" stop-color="%23f7c3e3" stop-opacity="0.35"/> <stop offset="100%" stop-color="%23ffb980" stop-opacity="0.3"/> </linearGradient> </defs> <rect width="800" height="600" fill="url(%23sunset)"/> <g opacity="0.35" transform="translate(560,420)"> <path d='M10 160 C 40 90, 50 40, 60 0' stroke='%237D5BA6' stroke-width='2' fill='none' /> <g fill='%23A88BD9'> <circle cx='60' cy='0' r='5'/> <circle cx='52' cy='22' r='4'/> <circle cx='44' cy='40' r='3.5'/> <circle cx='36' cy='58' r='3.5'/> <circle cx='28' cy='78' r='3.2'/> <circle cx='20' cy='98' r='3'/> <circle cx='12' cy='120' r='2.8'/> </g> </g> <g opacity='0.18'> <circle cx='90' cy='120' r='10' fill='%23ffd7c5'/> <circle cx='160' cy='80' r='6' fill='%23e0bfff'/> <circle cx='240' cy='160' r='8' fill='%23ffccd6'/> <circle cx='320' cy='60' r='7' fill='%23d4b9ff'/> <circle cx='520' cy='200' r='9' fill='%23ffcaa8'/> <circle cx='700' cy='100' r='7' fill='%23e0bfff'/> </g> <g transform='translate(390,220) rotate(-5)' opacity='0.35'> <path d='M0 0 C -40 -25, -80 -35, -110 -5 C -60 -3, -20 15, 0 0' fill='%23a592ff'/> <path d='M0 0 C 30 -25, 60 -40, 90 -15 C 45 -10, 15 5, 0 0' fill='%23f8b0a5'/> <ellipse cx='12' cy='8' rx='16' ry='9' fill='%238e73c5'/> <path d='M28,8 L58,6' stroke='%236e54a6' stroke-width='2'/> <path d='M10,20 C 5,40 -10,50 -20,55' stroke='%23a592ff' stroke-width='3' fill='none'/> </g> <g opacity='0.18'> <circle cx='640' cy='360' r='3' fill='%23ffffff'/> <circle cx='610' cy='340' r='2.5' fill='%23ffffff'/> <circle cx='620' cy='380' r='2.5' fill='%23ffffff'/> <circle cx='120' cy='300' r='2.5' fill='%23ffffff'/> <circle cx='200' cy='420' r='2.5' fill='%23ffffff'/> </g> </svg>');
+      background-repeat: repeat;
+      background-size: 800px auto;
+      opacity: 0.35;
+      z-index: -1;
+    }
+
+    #access-screen, #expired-screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg,
+        #b3e5fc 0%,
+        #cbb3ff 40%,
+        #f7c3e3 65%,
+        #ffb980 100%
+      );
+      color: var(--primary-color);
+      z-index: 9999;
+    }
+
+    #access-screen input {
+      padding: .7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--primary-color);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      outline: none;
+    }
+
+    #access-screen button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: .7rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all .3s ease;
+    }
+
+    #access-screen button:hover { background: var(--secondary-color); }
+    .error { color: #c0392b; margin-top: .4rem; }
+    .hidden { display: none !important; }
+
+    header { text-align: center; padding: 4rem 2rem 2rem; }
+    header h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 4vw + 1rem, 3.8rem);
+      color: var(--primary-color);
+    }
+    header p { font-size: 1.1rem; color: var(--secondary-color); }
+
+    nav {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+      border-radius: 14px;
+      max-width: 1024px;
+      margin: 1.5rem auto 2rem;
+      border: 1px solid var(--glass-border);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 700;
+      padding: .7rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      transition: all .3s ease;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      font-size: .98rem;
+    }
+
+    nav a:hover {
+      background: var(--primary-color);
+      color: var(--light-text);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(75,42,115,.25);
+    }
+
+    section {
+      padding: clamp(1.5rem,2vw + 1rem,2.5rem);
+      max-width: 980px;
+      margin: 2rem auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31,38,135,.15);
+      border: 1px solid var(--glass-border);
+    }
+
+    h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--accent-color);
+      display: inline-block;
+      padding-bottom: .5rem;
+    }
+
+    p { line-height: 1.7; font-size: 1.06rem; }
+
+    .video-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .video-placeholder {
+      background: rgba(255,255,255,.55);
+      border: 1px dashed var(--accent-color);
+      border-radius: 12px;
+      text-align: center;
+      padding: 2rem;
+      color: var(--secondary-color);
+      font-style: italic;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,.58);
+      padding: 1.6rem;
+      border-radius: 16px;
+      text-align: center;
+      transition: .3s;
+      border: 1px solid rgba(255,255,255,.55);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.4rem 2rem 2rem;
+      color: var(--primary-color);
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.6) 0%,
+        rgba(179,229,252,0.4) 25%,
+        rgba(203,179,255,0.35) 55%,
+        rgba(255,185,128,0.45) 100%
+      );
+      border-top: 1px solid var(--glass-border);
+    }
+
+    footer p { margin: .4rem 0; }
+    .glow::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -6px;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b79fe6, transparent);
+      filter: blur(.6px);
+    }
+
+    .logout-container { text-align: center; padding: 2rem; }
+    .logout-btn {
+      background: rgba(255,255,255,.65);
+      border: 1px solid var(--primary-color);
+      border-radius: 999px;
+      color: var(--primary-color);
+      padding: .8rem 1.6rem;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .logout-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Pantalla de acceso -->
   <div id="access-screen">
     <h2>Bienvenidas a Camino hacia mi Centro 🦋</h2>
     <p>Por favor, ingresa la contraseña para acceder al contenido:</p>
-    <input type="password" id="password" placeholder="Contraseña" />
+    <input type="password" id="password" placeholder="Contraseña">
     <button onclick="checkPassword()">Entrar</button>
     <p id="error" class="error hidden">Contraseña incorrecta</p>
   </div>
 
-  <!-- Pantalla de expiración -->
   <div id="expired-screen" class="hidden">
     <h2>✨ El acceso ha finalizado</h2>
     <p>Gracias por formar parte de Camino hacia mi Centro 💜</p>
   </div>
 
-  <!-- Contenido principal -->
   <div id="main-content" class="hidden">
     <header>
-      <h1 class="fade-in">Camino hacia mi Centro <span class="butterfly">🦋</span></h1>
-      <p class="fade-in-delay">Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
+      <h1>Camino hacia mi Centro <span class="butterfly">🦋</span></h1>
+      <p>Un camino para volver a casa, ese hogar sagrado que habita dentro tuyo.</p>
     </header>
 
     <nav>
@@ -46,18 +276,15 @@
     </nav>
 
     <main>
-      <!-- INICIO -->
-      <section id="inicio" class="card-section">
+      <section id="inicio">
         <h2>Bienvenida</h2>
         <p>Este espacio fue creado con muchísimo amor para acompañarte en tu camino de bienestar. Aquí encontrarás clases de yoga, meditaciones y rituales que te ayudarán a reconectar con tu centro.</p>
       </section>
 
-      <!-- CLASES -->
-      <section id="clases" class="card-section">
+      <section id="clases">
         <h2>Clases de Yoga</h2>
         <p>7 clases cortas pensadas para tu práctica semanal. Se repiten durante todo el mes para ayudarte a integrar el hábito.</p>
         <div class="video-container">
-          <!-- 👇 Pegá aquí tus links reales (YouTube/Vimeo). Ejemplo: src="https://www.youtube.com/embed/xxxx" -->
           <div class="video-placeholder">Clase 1 — Pega tu URL aquí</div>
           <div class="video-placeholder">Clase 2 — Pega tu URL aquí</div>
           <div class="video-placeholder">Clase 3 — Pega tu URL aquí</div>
@@ -66,14 +293,9 @@
           <div class="video-placeholder">Clase 6 — Pega tu URL aquí</div>
           <div class="video-placeholder">Clase 7 — Pega tu URL aquí</div>
         </div>
-        <!-- 🔄 Cómo reemplazar un placeholder por un video:
-          Sustituye el <div class="video-placeholder">…</div> por:
-          <iframe src="TU_VIDEO_URL" title="Clase X" allowfullscreen></iframe>
-        -->
       </section>
 
-      <!-- ALIMENTACIÓN -->
-      <section id="alimentacion" class="card-section">
+      <section id="alimentacion">
         <h2>Alimentación Consciente</h2>
         <p>Aquí podrás encontrar tips, recetas y guías para una alimentación más saludable y conectada con tu bienestar.</p>
         <div class="card-grid">
@@ -83,8 +305,7 @@
         </div>
       </section>
 
-      <!-- MEDITACIONES -->
-      <section id="meditaciones" class="card-section">
+      <section id="meditaciones">
         <h2>Meditaciones y Rituales</h2>
         <p>Espacio para conectar con tu interior a través de la calma y la intención consciente.</p>
         <div class="video-container">
@@ -93,82 +314,13 @@
         </div>
       </section>
 
-      <!-- COMUNIDAD -->
-      <section id="grupo" class="card-section">
+      <section id="grupo">
         <h2>Comunidad</h2>
         <p>Únete a la comunidad y compartí tu camino. <a href="#">Haz clic aquí para entrar al grupo privado.</a></p>
       </section>
 
-      <!-- DESCARGABLES -->
-      <section id="descargables" class="card-section">
+      <section id="descargables">
         <h2>Descargables</h2>
         <p>Aquí podrás acceder a material adicional: PDF, playlists y guías prácticas para acompañar tu experiencia.</p>
         <div class="card-grid">
-          <!-- 👇 Reemplazá # por el link a tu PDF o playlist -->
-          <a class="card link-card" href="#" target="_blank" rel="noopener">
-            <i class="fas fa-file-pdf"></i><h3>Guía de Meditación (PDF)</h3><p>Descarga la guía para profundizar tu práctica.</p>
-          </a>
-          <a class="card link-card" href="#" target="_blank" rel="noopener">
-            <i class="fas fa-music"></i><h3>Playlists Relajantes</h3><p>Música para tus sesiones de yoga y meditación.</p>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer-gradient">
-      <p class="footer-line glow">🌟 Buscá tu propósito y asciende tu alma.</p>
-      <p>Con amor, Chechu 🦋✨</p>
-    </footer>
-
-    <!-- CERRAR ACCESO -->
-    <div class="logout-container">
-      <button onclick="logout()" class="logout-btn"><i class="fas fa-door-open"></i> Cerrar acceso a este espacio</button>
-    </div>
-  </div>
-
-  <!-- Lógica de acceso -->
-  <script>
-    const PASSWORD   = "Asciendetualma333";
-    const ACCESS_KEY = "camino_access_date";
-
-    function checkPassword() {
-      const input = document.getElementById("password").value.trim();
-      const error = document.getElementById("error");
-      if (input === PASSWORD) {
-        const now = new Date();
-        localStorage.setItem(ACCESS_KEY, now.toISOString());
-        showContent();
-      } else {
-        error.classList.remove("hidden");
-      }
-    }
-
-    function showContent() {
-      document.getElementById("access-screen").classList.add("hidden");
-      document.getElementById("main-content").classList.remove("hidden");
-    }
-
-    function showExpired() {
-      document.getElementById("access-screen").classList.add("hidden");
-      document.getElementById("expired-screen").classList.remove("hidden");
-    }
-
-    function logout() {
-      localStorage.removeItem(ACCESS_KEY);
-      location.reload();
-    }
-
-    // Verifica si ya hay acceso guardado y si no expiró (30 días)
-    (function initAccess(){
-      const savedDate = localStorage.getItem(ACCESS_KEY);
-      if (!savedDate) return; // sin acceso previo: mostrar pantalla de contraseña
-      const firstAccess = new Date(savedDate);
-      const now = new Date();
-      const diffDays = (now - firstAccess) / (1000 * 60 * 60 * 24);
-      if (diffDays <= 30) showContent();
-      else showExpired();
-    })();
-  </script>
-</body>
-</html>
+          <a class="card" href="#" target="_blank" rel="
