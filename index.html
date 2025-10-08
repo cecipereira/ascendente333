@@ -21,6 +21,20 @@
       --glass-bg:rgba(255,255,255,0.36);
       --glass-border:rgba(255,255,255,0.5);
     }
+/* 🦋 Animación mariposa flotando */
+.butterfly {
+  display: inline-block;
+  animation: flutter 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes flutter {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); }
+  25%  { transform: translateY(-4px) rotate(-8deg) scale(1.05); }
+  50%  { transform: translateY(0) rotate(6deg) scale(0.98); }
+  75%  { transform: translateY(-6px) rotate(-4deg) scale(1.03); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
 
     body {
       margin: 0;
