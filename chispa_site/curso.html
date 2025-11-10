@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Área de Curso – 7 Días para Encender tu Chispa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Raleway:wght@300;400;600;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    #gate{position:fixed;inset:0;background:rgba(248,245,238,.92);backdrop-filter:blur(4px);display:grid;place-items:center;padding:24px}
+    #gate .box{background:#fff;border:1px solid #eadff7;box-shadow:0 10px 28px rgba(200,180,227,.25);border-radius:18px;max-width:520px;padding:20px;text-align:center}
+    #gate h2{font-family:"Playfair Display",serif;margin:8px 0}
+  </style>
+</head>
+<body>
+  <div id="gate" aria-modal="true" role="dialog">
+    <div class="box">
+      <h2>Área de Curso protegida</h2>
+      <p>Ingresá la contraseña que recibiste por email para comenzar.</p>
+      <p><input id="pass" type="password" placeholder="Contraseña" /> <button class="btn" id="go">Entrar</button></p>
+      <p class="small">¿No la tenés? Escribime a <strong>hola@caminohaciamicentro.com</strong></p>
+      <p class="small">Demo: <strong>luz2025</strong> (solo ejemplo)</p>
+    </div>
+  </div>
+
+  <header class="wrap">
+    <div class="logo">
+      <div class="dot" aria-hidden="true"></div>
+      <div>
+        <h1>7 Días para Encender tu Chispa</h1>
+        <div class="tag">Sé la emprendedora de tu vida</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="section">
+      <h3>Bienvenida 🪷</h3>
+      <p>Gracias por estar acá. Este espacio es tuyo por 30 días. Te sugiero 15–25 min por día: respiración, hábito, journaling y acción suave.</p>
+    </section>
+
+    <section class="section">
+      <h3>Día 1 – Presencia</h3>
+      <ul class="check">
+        <li>Respiración 4–4–6 (4 inhalo, 4 sostengo, 6 exhalo) x 5 ciclos.</li>
+        <li>Movimiento suave: cuello, hombros, columna (3 minutos).</li>
+        <li>Journaling: ¿Qué necesito hoy para sentirme presente?</li>
+        <li>Mini-hábito: vaso de agua tibia al despertar.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 2 – Claridad</h3>
+      <ul class="check">
+        <li>Respirar 2 min. con manos en el pecho.</li>
+        <li>Journaling: ¿Qué quiero crear en 30 días? (3 bullets)</li>
+        <li>Mini-hábito: 10’ de orden amoroso de un espacio.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 3 – Identidad</h3>
+      <ul class="check">
+        <li>Mantra: “Soy la mujer que cumple lo que se promete con amor”.</li>
+        <li>Journaling: ¿Quién soy cuando brillo? ¿Qué elijo creer de mí hoy?</li>
+        <li>Mini-hábito: 1 elemento que viste tu identidad (cuaderno, mate, playlist).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 4 – Acción pequeña</h3>
+      <ul class="check">
+        <li>Elegí una acción de 10–15 min. que acerque a tu visión.</li>
+        <li>Journaling: ¿Qué micro-paso doy hoy que sea inevitable?</li>
+        <li>Mini-hábito: mover el cuerpo 5 min. (música favorita).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 5 – Energía</h3>
+      <ul class="check">
+        <li>Respirar profundo 10 veces mirando por la ventana.</li>
+        <li>Journaling: ¿Qué suelto hoy para sentirme liviana?</li>
+        <li>Mini-hábito: 5 alimentos que me suman energía esta semana.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 6 – Organización</h3>
+      <ul class="check">
+        <li>Agenda 3 bloques de 25 min. para la próxima semana.</li>
+        <li>Journaling: ¿Qué es lo esencial? ¿Qué puedo dejar para después?</li>
+        <li>Mini-hábito: checklist simple para cada mañana.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h3>Día 7 – Propósito</h3>
+      <ul class="check">
+        <li>Escribí tu visión en 5 líneas (futuro cercano).</li>
+        <li>Ritual: gratitud por 3 avances de esta semana.</li>
+        <li>Compromiso: una acción semanal que sostenga tu chispa.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Camino hacia mi centro • Con amor, Chechu 🦋✨</div>
+  </footer>
+
+  <script>
+    const PASSWORD = "luz2025";
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('go').addEventListener('click', ()=>{
+      const v = document.getElementById('pass').value.trim();
+      if(v === PASSWORD){
+        document.getElementById('gate').style.display='none';
+        sessionStorage.setItem('chispa-ok','1');
+      } else {
+        alert('Contraseña incorrecta. Revisa el email de acceso.');
+      }
+    });
+    if(sessionStorage.getItem('chispa-ok')==='1'){ document.getElementById('gate').style.display='none'; }
+  </script>
+</body>
+</html>
